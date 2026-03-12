@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jogo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="modo()">
     <main>
-        <h2>Jogo de adivinhação</h2>
+        <header>
+            <button id="mode" onclick="darkmode()" >
+                <span>☀️</span>
+                <span>🌑</span>
+            </button>
+            <h2>Jogo de adivinhação</h2>  
+        </header>
+        
         <p>O computador vai gerar um número de 1 a 100</p>
         <p>Tente acertar qual é, você tem 10 tentativas!!!</p>
-        <input type="number" name="palpite" id="palpite">
+        <input type="number" name="palpite" id="palpite" placeholder="Digite aqui..." required>
         <button id="botao">Chutar</button>
         <p id="tentativas"></p>
         <p id="msg"></p>  

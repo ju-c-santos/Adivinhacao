@@ -1,26 +1,9 @@
 let botao = document.getElementById('botao')
+let modoEscuro = localStorage.getItem('darkMode')
 let click = 0
 let resto = 10
-console.log(Numrandom());
 
-botao.addEventListener('click', (evt) => {
-    evt.preventDefault;
-    let inputTentativa = document.getElementById('palpite').value;
-    click += 1;
-    resto -= 1;
-    
-    if (click > 10){
-        console.log('FORAM 10 TENTATIVAS!!!')
-        saidaTentativa(' ');
-        saidaMensagem('<strong>VOCÊ PERDEU</strong>!!!');
-    } else {
-        tentativaReturn(inputTentativa, click, resto); 
-        
-    }
 
-    console.log(click, resto)
-
-});
 
 function Numrandom(){
     min = 1;
@@ -30,14 +13,41 @@ function Numrandom(){
     
 }
 
+botao.addEventListener('click', (evt) => {
+    evt.preventDefault;
+    let inputTentativa = document.getElementById('palpite').value;
+
+    if(validando(inputTentativa, 100, 1) === true){
+        click += 1;
+        resto -= 1;
+    
+        if (click > 10){
+            console.log('FORAM 10 TENTATIVAS!!!')
+            saidaTentativa(' ');
+            saidaMensagem('<strong>VOCÊ PERDEU</strong>!!!');
+        } else {
+            tentativaReturn(inputTentativa, click, resto); 
+        
+        }
+    } else {
+        alert('Campo vazio ou valor inválido, tente novamente')
+
+    }
+
+});
+
+function validando (l, max, min){
+    if (l.length === 0 || l < min || l > max){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 function saidaTentativa(m){
     let mensagemTentativa = document.getElementById('tentativas');
     return mensagemTentativa.innerHTML = m;
-}
-
-function saidaMensagem(n){
-    let mensagem = document.getElementById('msg');
-    return mensagem.innerHTML = n;
 }
 
 function tentativaReturn (p, t, r){
@@ -64,4 +74,39 @@ function tentativaReturn (p, t, r){
     }
         
     
+}
+
+function saidaMensagem(n){
+    let mensagem = document.getElementById('msg');
+    return mensagem.innerHTML = n;
+}
+
+// MODO ESCURO AQUI
+
+function darkmode(){
+    let modo = localStorage.getItem('darkMode')
+    if (modo === 'ligado'){
+        return desligarDarkmode();
+    } else {
+        return ligarDarkmode();
+    }
+}
+
+function modo(){
+    let m = localStorage.getItem('darkMode')
+    if (m === 'ligado'){
+        return ligarDarkmode()
+    } else {
+        return desligarDarkmode()
+    }
+}
+
+function ligarDarkmode(){
+    modoEscuro = localStorage.setItem('darkMode', 'ligado');
+    document.body.classList.add('darkMode');
+}
+
+function desligarDarkmode(){
+    modoEscuro = localStorage.setItem('darkMode', 'desligado');
+    document.body.classList.remove('darkMode');
 }
