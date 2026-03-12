@@ -1,20 +1,24 @@
 let botao = document.getElementById('botao')
+let click = 0
+let resto = 10
+console.log(Numrandom());
 
 botao.addEventListener('click', (evt) => {
     evt.preventDefault;
-    let t = 0;
-    //et tentativa = 1;
     let inputTentativa = document.getElementById('palpite').value;
+    click += 1;
+    resto -= 1;
     
-    if (inputTentativa != Numrandom()){
-        let r = nRestante()
-        t = nTentativas()
-        tentativaReturn(inputTentativa, r);
+    if (click > 10){
+        console.log('FORAM 10 TENTATIVAS!!!')
+        saidaTentativa(' ');
+        saidaMensagem('<strong>VOCÊ PERDEU</strong>!!!');
     } else {
-        saida (`Parabéns!! Você acertou!!!<br>No total foram ${t} tentativas`)
-    
+        tentativaReturn(inputTentativa, click, resto); 
+        
     }
-    
+
+    console.log(click, resto)
 
 });
 
@@ -26,33 +30,38 @@ function Numrandom(){
     
 }
 
-function saida(m = ' ', n = ' '){
+function saidaTentativa(m){
     let mensagemTentativa = document.getElementById('tentativas');
+    return mensagemTentativa.innerHTML = m;
+}
+
+function saidaMensagem(n){
     let mensagem = document.getElementById('msg');
-    return (mensagem.innerHTML = m, mensagemTentativa.innerHTML = n);
+    return mensagem.innerHTML = n;
 }
 
-function tentativaReturn (p, r, t){
+function tentativaReturn (p, t, r){
     n = localStorage.getItem('numero')
-
-    if (p < n){
-            saida('Número abaixo', `Restam ${r} tentativas`);
-    } 
+    console.log(n);
     
-    if(p > n) {
-            saida ('Número acima', `Restam ${r} tentativas`);
+
+    if (p != n){
+        if (p < n){
+            saidaTentativa(`Restam ${r} tentativas`);
+            saidaMensagem('O número secreto é <strong>MAIOR</strong>');
         
-    }       
-    
-}
+        } else {
+            saidaTentativa(`Restam ${r} tentativas`);
+            saidaMensagem('O número secreto é <strong>MAIOR</strong>');
+                    
+         }      
 
-function nTentativas(){
-    let tentativa = 1
-    return tentativa += 1;
-    
-}
+    }
 
-function nRestante(){
-    let resto = 10
-    return resto -= 1;
+    if (p == n){
+        saidaTentativa(' ');
+        return saidaMensagem (`Parabéns!! Você acertou!!!<br>No total foram tentativas ${t}`);
+    }
+        
+    
 }
