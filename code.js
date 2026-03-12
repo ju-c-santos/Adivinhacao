@@ -3,13 +3,13 @@ let modoEscuro = localStorage.getItem('darkMode')
 let click = 0
 let resto = 10
 
-
+Numrandom()
 
 function Numrandom(){
     min = 1;
     max = 100;
-    let numero = Math.floor(Math.random() * (max - 1)) + min;
-    localStorage.setItem('numero', numero)
+    let num = Math.floor(Math.random() * (max - 1)) + min;
+    localStorage.setItem('numero', num)
     
 }
 
@@ -17,6 +17,7 @@ botao.addEventListener('click', (evt) => {
     evt.preventDefault;
     let inputTentativa = document.getElementById('palpite').value;
 
+    let numero = localStorage.getItem('numero')
     if(validando(inputTentativa, 100, 1) === true){
         click += 1;
         resto -= 1;
@@ -24,7 +25,7 @@ botao.addEventListener('click', (evt) => {
         if (click > 10){
             console.log('FORAM 10 TENTATIVAS!!!')
             saidaTentativa(' ');
-            saidaMensagem('<strong>VOCÊ PERDEU</strong>!!!');
+            saidaMensagem(`<strong>VOCÊ PERDEU</strong> o número secreto era ${numero}!!!`);
         } else {
             tentativaReturn(inputTentativa, click, resto); 
         
