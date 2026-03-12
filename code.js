@@ -1,13 +1,20 @@
 let botao = document.getElementById('botao')
-console.log(Numrandom());
 
 botao.addEventListener('click', (evt) => {
     evt.preventDefault;
-
+    let t = 0;
+    //et tentativa = 1;
     let inputTentativa = document.getElementById('palpite').value;
-
-    tentativa(inputTentativa)
-    tentar(inputTentativa)
+    
+    if (inputTentativa != Numrandom()){
+        let r = nRestante()
+        t = nTentativas()
+        tentativaReturn(inputTentativa, r);
+    } else {
+        saida (`Parabéns!! Você acertou!!!<br>No total foram ${t} tentativas`)
+    
+    }
+    
 
 });
 
@@ -25,32 +32,27 @@ function saida(m = ' ', n = ' '){
     return (mensagem.innerHTML = m, mensagemTentativa.innerHTML = n);
 }
 
-function tentativaReturn (p){
+function tentativaReturn (p, r, t){
     n = localStorage.getItem('numero')
-    console.log(n);
 
-    if (p != n){
-        if (p < n){
+    if (p < n){
             saida('Número abaixo', `Restam ${r} tentativas`);
-        } else {
+    } 
+    
+    if(p > n) {
             saida ('Número acima', `Restam ${r} tentativas`);
         
-        }      
-    } 
-
-    if (p == n) {
-        return saida (`Parabéns!! Você acertou!!!<br>No total foram ${t} tentativas`)
-    }
+    }       
     
 }
 
-function tentar(p){
-    let numtentativa = 1;
-    let tentrestante = 10;
+function nTentativas(){
+    let tentativa = 1
+    return tentativa += 1;
     
-    for (let i = 1; i <= 10; i++){
-        return (numtentativa +=1,
-        tentrestante -= 1);
-    }
+}
 
+function nRestante(){
+    let resto = 10
+    return resto -= 1;
 }
